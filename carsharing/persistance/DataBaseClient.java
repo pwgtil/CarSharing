@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DbClient {
+public class DataBaseClient {
 
     // JDBC driver name and database URL
     static public final String JDBC_DRIVER = "org.h2.Driver";
@@ -21,7 +21,7 @@ public class DbClient {
 
     private final DataSource dataSource;
 
-    public DbClient(DataSource dataSource) {
+    public DataBaseClient(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
