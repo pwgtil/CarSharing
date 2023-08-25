@@ -1,15 +1,21 @@
 package carsharing;
 
+import carsharing.persistance.Company;
+import carsharing.persistance.CompanyDao;
 import carsharing.persistance.DataBaseClient;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CarSharingService {
+    static public String DB_NAME;
+
+    private CompanyDao companyDao;
+    private List<Company> companies = new ArrayList<>();
 
     public CarSharingService(String dbName) {
-        if (!dbName.isEmpty()) {
-            DataBaseClient.DB_NAME = dbName;
-        }
+        CarSharingService.DB_NAME = dbName;
         try {
             init();
         } catch (ClassNotFoundException | SQLException e) {
@@ -18,35 +24,21 @@ public class CarSharingService {
     }
 
     private void init() throws ClassNotFoundException, SQLException {
-//        Class.forName(DataBaseClient.JDBC_DRIVER);
-//        CompanyDao companyDao = new CompanyDao();
+        Class.forName(DataBaseClient.JDBC_DRIVER);
+        companyDao = new CompanyDao();
+        new MenuController(this).init();
 //        companyDao.add(new Company(1, "My fantastic Company"));
 //        companyDao.add(new Company(1, "My fantastic Company 2"));
 //        companyDao.add(new Company(1, "My fantastic Company 3"));
-
-        mainMenu();
     }
 
-    private void mainMenu() {
-        Menu menu = new Menu();
-        menu.addItem(new MenuItem("Log in as a manager", this, "subMenuA"));
-        menu.execute();
+
+    public List<Company> getCompanies() {
+        companies = companyDao.findAll();
+        return companies;
     }
 
-    public void subMenuA() {
-        Menu menu = new Menu();
-        menu.addItem(new MenuItem("Company List", this, "getCompanyList"));
-        menu.addItem(new MenuItem("Create a company", this, "createCompany"));
-        menu.execute();
-    }
-
-    public void getCompanyList() {
-        System.out.println("\nCompany list:");
-        System.out.println("\nList of companies (TODO)");
-    }
-
-    public void createCompany() {
-        System.out.println("\nEnter the company name:");
-        System.out.println("\nCompany creation (TODO)");
+    public void addCompany(String companyName) {
+        companyDao.add(new Company(0, companyName));
     }
 }
