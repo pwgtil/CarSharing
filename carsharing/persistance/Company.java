@@ -1,3 +1,3 @@
 package carsharing.persistance;
 
-public record Company(int id, String name) {}
+public record Company(int id, String name){}

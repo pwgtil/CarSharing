@@ -5,7 +5,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataBaseClient {
+public class DataBaseClient<T> {
 
     // JDBC driver name and database URL
     static public final String JDBC_DRIVER = "org.h2.Driver";
@@ -17,9 +17,11 @@ public class DataBaseClient {
     static final String PASS = "";
 
     private final DataSource dataSource;
+    private final RowMapper<T> rowMapper;
 
-    public DataBaseClient(DataSource dataSource) {
+    public DataBaseClient(DataSource dataSource, RowMapper<T> rowMapper) {
         this.dataSource = dataSource;
+        this.rowMapper = rowMapper;
     }
 
     public void run(String str) {
@@ -33,8 +35,8 @@ public class DataBaseClient {
         }
     }
 
-    public <T> T select(String query, TableType tableType) {
-        List<T> results = selectForList(query, tableType);
+    public T select(String query) {
+        List<T> results = selectForList(query);
         if (results.size() == 1) {
             return results.get(0);
         } else if (results.isEmpty()) {
@@ -44,7 +46,7 @@ public class DataBaseClient {
         }
     }
 
-    public <T> List<T> selectForList(String query, TableType tableType) {
+    public List<T> selectForList(String query) {
         List<T> results = new ArrayList<>();
 
         try (Connection con = dataSource.getConnection();
@@ -53,15 +55,7 @@ public class DataBaseClient {
              ResultSet resultSetItem = statement.executeQuery(query);
             con.setAutoCommit(true);
             while (resultSetItem.next()) {
-                // TODO: add logic per table
-                switch (tableType) {
-                    case COMPANY -> {
-                        int id = resultSetItem.getInt("ID");
-                        String name = resultSetItem.getString("NAME");
-                        results.add((T) new Company(id, name));
-                    }
-
-                }
+                results.add(rowMapper.mapRow(resultSetItem));
             }
             return results;
         } catch (SQLException e) {

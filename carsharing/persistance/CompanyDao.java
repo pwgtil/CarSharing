@@ -3,6 +3,8 @@ package carsharing.persistance;
 import carsharing.CarSharingService;
 import org.h2.jdbcx.JdbcDataSource;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.List;
 
 public class CompanyDao implements EntityDao<Company> {
@@ -19,25 +21,25 @@ public class CompanyDao implements EntityDao<Company> {
     private static final String UPDATE_DATA = "UPDATE COMPANY SET NAME = '%s' WHERE ID = %d";
     private static final String DELETE_DATA = "DELETE FROM COMPANY WHERE id = %d";
 
-    private final DataBaseClient dataBaseClient;
+    private final DataBaseClient<Company> dataBaseClient;
 
     public CompanyDao() {
         JdbcDataSource dataSource = new JdbcDataSource();
         dataSource.setURL(CONNECTION_URL);
         dataSource.setUser(DataBaseClient.USER);
         dataSource.setPassword(DataBaseClient.PASS);
-        dataBaseClient = new DataBaseClient(dataSource);
+        dataBaseClient = new DataBaseClient<>(dataSource, new CompanyRowMapper());
         dataBaseClient.run(CREATE_DB);
     }
 
     @Override
     public List<Company> findAll() {
-        return dataBaseClient.selectForList(SELECT_ALL, TableType.COMPANY);
+        return dataBaseClient.selectForList(SELECT_ALL);
     }
 
     @Override
     public Company findById(int id) {
-        return dataBaseClient.select(String.format(SELECT, id), TableType.COMPANY);
+        return dataBaseClient.select(String.format(SELECT, id));
     }
 
     @Override

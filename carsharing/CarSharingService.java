@@ -3,6 +3,7 @@ package carsharing;
 import carsharing.persistance.Company;
 import carsharing.persistance.CompanyDao;
 import carsharing.persistance.DataBaseClient;
+import carsharing.persistance.EntityDao;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.List;
 public class CarSharingService {
     static public String DB_NAME;
 
-    private CompanyDao companyDao;
+    private EntityDao<Company> companyDao;
     private List<Company> companies = new ArrayList<>();
 
     public CarSharingService(String dbName) {
@@ -26,7 +27,7 @@ public class CarSharingService {
     private void init() throws ClassNotFoundException, SQLException {
         Class.forName(DataBaseClient.JDBC_DRIVER);
         companyDao = new CompanyDao();
-        new MenuController(this).init();
+        new CarSharingController(this).init();
 //        companyDao.add(new Company(1, "My fantastic Company"));
 //        companyDao.add(new Company(1, "My fantastic Company 2"));
 //        companyDao.add(new Company(1, "My fantastic Company 3"));

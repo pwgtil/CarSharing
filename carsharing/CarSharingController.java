@@ -5,11 +5,11 @@ import carsharing.persistance.Company;
 import java.util.List;
 import java.util.Scanner;
 
-public class MenuController {
+public class CarSharingController {
 
     private CarSharingService service;
 
-    public MenuController(CarSharingService service) {
+    public CarSharingController(CarSharingService service) {
         this.service = service;
     }
 
