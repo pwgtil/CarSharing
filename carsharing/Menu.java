@@ -9,6 +9,8 @@ import java.util.List;
 public class Menu {
     private static BufferedReader in;
     private static Menu rootMenu;
+
+    private static int menuPassCounter = 0;
     private final List<MenuItem> itemList;
     private final MenuItem exitItem;
     private String title;
@@ -37,6 +39,13 @@ public class Menu {
     public void execute() {
         MenuItem item;
         do {
+            if (this.isRootMenu) {
+                Menu.setMenuPassCounter(0);
+            }
+            if (Menu.getMenuPassCounter() > 0) {
+                Menu.decrementMenuPassCounter();
+                break;
+            }
             this.print();
             item = this.getUserInput();
             item.invoke();
@@ -97,5 +106,22 @@ public class Menu {
 
     public String toString() {
         return "menu=[" + this.title + "]  items=" + this.itemList.toString();
+    }
+
+    /*
+    * Needed only due to the fact exercise needs to go back more thank one level menu
+    * */
+    public static int getMenuPassCounter() {
+        return menuPassCounter;
+    }
+    public static void decrementMenuPassCounter() {
+        if (menuPassCounter > 0) {
+            menuPassCounter--;
+        }
+    }
+    public static void setMenuPassCounter(int counter) {
+        if (counter >= 0) {
+            menuPassCounter = counter;
+        }
     }
 }

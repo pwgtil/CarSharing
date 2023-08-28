@@ -1,5 +1,6 @@
 package carsharing;
 
+import carsharing.persistance.Car;
 import carsharing.persistance.Company;
 
 import java.util.List;
@@ -32,10 +33,13 @@ public class CarSharingController {
     }
 
     public void getCompanyList() {
-        System.out.print("\nCompany list:");
+//        System.out.print("\nCompany list:");
         List<Company> companies = service.getCompanies();
         if (!companies.isEmpty()) {
-            companies.stream().forEach(company -> System.out.print("\n" + company.id() + ". " + company.name()));
+            Menu menu = new Menu();
+            menu.setTitle("\nChoose a company");
+            companies.stream().forEach(company -> menu.addItem(new MenuItem( company.name(), this,"subMenuB", company.name())));
+            menu.execute();
         } else {
             System.out.print("\nThe company list is empty!");
         }
@@ -49,6 +53,36 @@ public class CarSharingController {
         String companyName = sc.nextLine();
         service.addCompany(companyName);
         System.out.print("The company was created!");
+        System.out.print("\n");
+    }
+
+    public void subMenuB(String companyName) {
+        Menu menu = new Menu();
+        menu.setTitle("\n" + companyName + " company");
+        menu.addItem(new MenuItem("Car list", this, "getCarList", companyName));
+        menu.addItem(new MenuItem("Create a car", this, "createCar", companyName));
+        menu.execute();
+        Menu.setMenuPassCounter(1);
+    }
+
+    public void getCarList(String companyName) {
+        List<Car> cars = service.getCars(companyName);
+        if (!cars.isEmpty()) {
+            System.out.print("\n" + companyName + " cars:");
+            cars.stream().forEach(car -> System.out.print("\n" + car.id() + ". " + car.name()));
+        } else {
+            System.out.print("\nThe car list is empty!");
+        }
+        System.out.print("\n");
+    }
+
+    public void createCar(String companyName) {
+        System.out.print("\nEnter the car name:");
+        System.out.print("\n");
+        Scanner sc = new Scanner(System.in);
+        String carName = sc.nextLine();
+        service.addCar(carName, companyName);
+        System.out.print("The car was added!");
         System.out.print("\n");
     }
 }

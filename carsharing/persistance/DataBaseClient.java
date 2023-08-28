@@ -52,7 +52,7 @@ public class DataBaseClient<T> {
         try (Connection con = dataSource.getConnection();
              Statement statement = con.createStatement()
         ) {
-             ResultSet resultSetItem = statement.executeQuery(query);
+            ResultSet resultSetItem = statement.executeQuery(query);
             con.setAutoCommit(true);
             while (resultSetItem.next()) {
                 results.add(rowMapper.mapRow(resultSetItem));
