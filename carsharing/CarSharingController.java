@@ -69,7 +69,9 @@ public class CarSharingController {
         List<Car> cars = service.getCars(companyName);
         if (!cars.isEmpty()) {
             System.out.print("\n" + companyName + " cars:");
-            cars.stream().forEach(car -> System.out.print("\n" + car.id() + ". " + car.name()));
+            for (int i = 0; i < cars.size(); i++) {
+                System.out.print("\n" + (i + 1) + ". " + cars.get(i).name());
+            }
         } else {
             System.out.print("\nThe car list is empty!");
         }
