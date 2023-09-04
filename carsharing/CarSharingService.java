@@ -32,15 +32,6 @@ public class CarSharingService {
         carDao = new CarDao();
         customerDao = new CustomerDao();
         new CarSharingController(this).init();
-        /*
-         * Test
-         * */
-//        companyDao.add(new Company(0, "New rentals"));
-//        carDao.add(new Car(0, "Fiat panda", 1));
-//        customerDao.add(new Customer(0, "Test customer 1", null));
-//        customerDao.add(new Customer(0, "Test customer 2", null));
-//        customerDao.add(new Customer(0, "Test customer 3", null));
-//        customerDao.update(new Customer(1, "Test customer 1", 1));
     }
 
     /*

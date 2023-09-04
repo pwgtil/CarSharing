@@ -31,7 +31,7 @@ public class Menu {
             this.setTitle("");
             this.exitItem = new MenuItem("Back");
         }
-        this.exitItem.setExitItem(true);
+        this.exitItem.setExitItem();
     }
 
     public void addItem(MenuItem item) { this.itemList.add(item); }
@@ -53,18 +53,17 @@ public class Menu {
         while(!item.isExitItem());
     }
 
-//    private int getExitIndex() { return this.itemList.size() + 1; }
     private int getExitIndex() { return 0; }
 
     private MenuItem getUserInput() {
         MenuItem item = null;
         String input = null;
 
+        //noinspection finally
         try {
             input = Menu.in.readLine();
             int option = Integer.parseInt(input);
 
-//            if (option < 1 || option > this.getExitIndex())
             if (option < 0 || option > this.itemList.size())
                 throw new NumberFormatException();
 
@@ -81,7 +80,7 @@ public class Menu {
             item = new MenuItem(null);
 //            ConsoleUtils.pauseExecution();
         }
-        catch (IOException ex) { ex.printStackTrace(); }
+        catch (IOException e) { System.out.println(e.getMessage()); }
         finally { return item; }
     }
 
@@ -91,12 +90,12 @@ public class Menu {
 //        sb.append("\n");
 
         if (!this.title.isEmpty())
-            sb.append(this.title + ":");
+            sb.append(this.title).append(":");
 
         for (int i = 0; i < this.itemList.size(); i++)
-            sb.append("\n" + (i + 1) + ". " + this.itemList.get(i).getLabel());
+            sb.append("\n").append(i + 1).append(". ").append(this.itemList.get(i).getLabel());
 
-        sb.append("\n" + getExitIndex() + ". " + exitItem.getLabel());
+        sb.append("\n").append(getExitIndex()).append(". ").append(exitItem.getLabel());
         sb.append("\n");
 
         System.out.print(sb);

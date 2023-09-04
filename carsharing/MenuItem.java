@@ -3,9 +3,9 @@ package carsharing;
 import java.lang.reflect.Method;
 
 public class MenuItem {
-    private Object obj;
-    private String label;
-    private String target;
+    private final Object obj;
+    private final String label;
+    private final String target;
     private String param1 = null;
 
     private boolean isExitItem;
@@ -39,12 +39,12 @@ public class MenuItem {
                 method.invoke(obj);
             }
         }
-        catch (Exception ex) { ex.printStackTrace(); }
+        catch (Exception e) { System.out.println(e.getMessage()); }
     }
 
     boolean isExitItem() { return isExitItem; }
 
-    void setExitItem(boolean isExitItem) { this.isExitItem = isExitItem; }
+    void setExitItem() { this.isExitItem = true; }
 
     public String toString() { return getLabel(); }
 }

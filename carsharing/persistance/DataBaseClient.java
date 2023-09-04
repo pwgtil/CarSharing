@@ -31,7 +31,7 @@ public class DataBaseClient<T> {
             con.setAutoCommit(true);
             statement.executeUpdate(str);
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage() + " : " + e.getSQLState());
         }
     }
 
@@ -59,7 +59,7 @@ public class DataBaseClient<T> {
             }
             return results;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage() + " : " + e.getSQLState());
         }
         return results;
     }

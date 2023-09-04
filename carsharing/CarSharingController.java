@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class CarSharingController {
 
-    private CarSharingService service;
+    private final CarSharingService service;
 
     public CarSharingController(CarSharingService service) {
         this.service = service;
@@ -40,7 +40,7 @@ public class CarSharingController {
         if (!companies.isEmpty()) {
             Menu menu = new Menu();
             menu.setTitle("\nChoose a company");
-            companies.stream().forEach(company -> menu.addItem(new MenuItem(company.name(), this, "mgrSubMenuB", company.name())));
+            companies.forEach(company -> menu.addItem(new MenuItem(company.name(), this, "mgrSubMenuB", company.name())));
             menu.execute();
         } else {
             System.out.print("\nThe company list is empty!");
@@ -105,7 +105,7 @@ public class CarSharingController {
         if (!customers.isEmpty()) {
             Menu menu = new Menu();
             menu.setTitle("\nCustomer list");
-            customers.stream().forEach(customer -> menu.addItem(new MenuItem(customer.name(), this, "cusSubMenuA", customer.name())));
+            customers.forEach(customer -> menu.addItem(new MenuItem(customer.name(), this, "cusSubMenuA", customer.name())));
             menu.execute();
         } else {
             System.out.print("\nThe customer list is empty!");
@@ -152,7 +152,7 @@ public class CarSharingController {
             if (!companies.isEmpty()) {
                 Menu menu = new Menu();
                 menu.setTitle("\nChoose a company");
-                companies.stream().forEach(company -> menu.addItem(new MenuItem(company.name(), this, "cusSelectCar", company.name())));
+                companies.forEach(company -> menu.addItem(new MenuItem(company.name(), this, "cusSelectCar", company.name())));
                 menu.execute();
             } else {
                 System.out.print("\nThe company list is empty!");
@@ -168,7 +168,7 @@ public class CarSharingController {
         if (!cars.isEmpty()) {
             Menu menu = new Menu();
             menu.setTitle("\nChoose a car");
-            cars.stream().forEach(car -> menu.addItem(new MenuItem(car.name(), this, "cusRentCar", car.name())));
+            cars.forEach(car -> menu.addItem(new MenuItem(car.name(), this, "cusRentCar", car.name())));
             menu.execute();
         } else {
             System.out.print("\nThe car list is empty!");

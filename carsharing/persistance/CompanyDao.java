@@ -3,8 +3,6 @@ package carsharing.persistance;
 import carsharing.CarSharingService;
 import org.h2.jdbcx.JdbcDataSource;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.List;
 
 public class CompanyDao implements EntityDao<Company> {
