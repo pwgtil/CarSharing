@@ -95,7 +95,7 @@ public class CarSharingService {
 
     public boolean carReturnByCurrentCustomer() {
         if (currentCustomer.rentedCarId() != 0) {
-            Customer customer = new Customer(currentCustomer.id(), currentCustomer.name(), 0);
+            Customer customer = new Customer(currentCustomer.id(), currentCustomer.name(), null);
             customerDao.update(customer);
             currentCustomer = customer;
             return true;
@@ -105,7 +105,7 @@ public class CarSharingService {
     }
 
     public String getRentedCarByCurrentCustomer() {
-        int rentedCarId = currentCustomer.rentedCarId();
+        Integer rentedCarId = currentCustomer.rentedCarId();
         if (rentedCarId != 0) {
             return carDao.findById(rentedCarId).name();
         } else {
@@ -119,7 +119,7 @@ public class CarSharingService {
     }
 
     public void setRentedCarByCurrentCustomer(String carName) {
-        int carId = carDao.findAll().stream()
+        Integer carId = carDao.findAll().stream()
                 .filter(car -> car.name().equals(carName))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("Car " + carName + " does not exist"))

@@ -40,7 +40,7 @@ public class CarSharingController {
         if (!companies.isEmpty()) {
             Menu menu = new Menu();
             menu.setTitle("\nChoose a company");
-            companies.stream().forEach(company -> menu.addItem(new MenuItem( company.name(), this,"mgrSubMenuB", company.name())));
+            companies.stream().forEach(company -> menu.addItem(new MenuItem(company.name(), this, "mgrSubMenuB", company.name())));
             menu.execute();
         } else {
             System.out.print("\nThe company list is empty!");
@@ -105,7 +105,7 @@ public class CarSharingController {
         if (!customers.isEmpty()) {
             Menu menu = new Menu();
             menu.setTitle("\nCustomer list");
-            customers.stream().forEach(customer -> menu.addItem(new MenuItem( customer.name(), this,"cusSubMenuA", customer.name())));
+            customers.stream().forEach(customer -> menu.addItem(new MenuItem(customer.name(), this, "cusSubMenuA", customer.name())));
             menu.execute();
         } else {
             System.out.print("\nThe customer list is empty!");
@@ -147,14 +147,18 @@ public class CarSharingController {
     }
 
     public void cusSelectCompany() {
-        List<Company> companies = service.getCompanies();
-        if (!companies.isEmpty()) {
-            Menu menu = new Menu();
-            menu.setTitle("\nChoose a company");
-            companies.stream().forEach(company -> menu.addItem(new MenuItem( company.name(), this,"cusSelectCar", company.name())));
-            menu.execute();
+        if (service.getRentedCarByCurrentCustomer() == null) {
+            List<Company> companies = service.getCompanies();
+            if (!companies.isEmpty()) {
+                Menu menu = new Menu();
+                menu.setTitle("\nChoose a company");
+                companies.stream().forEach(company -> menu.addItem(new MenuItem(company.name(), this, "cusSelectCar", company.name())));
+                menu.execute();
+            } else {
+                System.out.print("\nThe company list is empty!");
+            }
         } else {
-            System.out.print("\nThe company list is empty!");
+            System.out.print("\nYou've already rented a car!");
         }
         System.out.print("\n");
     }
@@ -164,7 +168,7 @@ public class CarSharingController {
         if (!cars.isEmpty()) {
             Menu menu = new Menu();
             menu.setTitle("\nChoose a car");
-            cars.stream().forEach(car -> menu.addItem(new MenuItem( car.name(), this,"cusRentCar", car.name())));
+            cars.stream().forEach(car -> menu.addItem(new MenuItem(car.name(), this, "cusRentCar", car.name())));
             menu.execute();
         } else {
             System.out.print("\nThe car list is empty!");
