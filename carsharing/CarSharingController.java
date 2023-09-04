@@ -125,7 +125,7 @@ public class CarSharingController {
     }
 
     public void cusReturnCar() {
-        boolean isReturned = service.carReturnedByCustomer(customerName);
+        boolean isReturned = service.carReturnByCurrentCustomer();
         if (isReturned) {
             System.out.print("\nYou've returned a rented car!");
         } else {
@@ -160,7 +160,7 @@ public class CarSharingController {
     }
 
     public void cusSelectCar(String companyName) {
-        List<Car> cars = service.getCars(companyName);
+        List<Car> cars = service.getAvailableCars(companyName);
         if (!cars.isEmpty()) {
             Menu menu = new Menu();
             menu.setTitle("\nChoose a car");
