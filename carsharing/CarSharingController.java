@@ -174,7 +174,7 @@ public class CarSharingController {
 
     public void cusRentCar(String carName) {
         service.setRentedCarByCurrentCustomer(carName);
-        System.out.print("\nYou rented " + carName);
+        System.out.print("\nYou rented '" + carName + "'");
         System.out.print("\n");
         Menu.setMenuPassCounter(2);
     }

@@ -15,7 +15,7 @@ public class CustomerDao implements EntityDao<Customer>{
             "FOREIGN KEY (RENTED_CAR_ID) REFERENCES CAR(ID));";
     private static final String SELECT_ALL = "SELECT * FROM CUSTOMER";
     private static final String SELECT = "SELECT * FROM CUSTOMER WHERE ID = %d";
-    private static final String INSERT_DATA = "INSERT INTO CUSTOMER (NAME) VALUES '%s'";
+    private static final String INSERT_DATA = "INSERT INTO CUSTOMER (NAME, RENTED_CAR_ID) VALUES ('%s', null)";
     private static final String UPDATE_DATA = "UPDATE CUSTOMER SET NAME = '%s', RENTED_CAR_ID = %d WHERE ID = %d";
     private static final String DELETE_DATA = "DELETE FROM CUSTOMER WHERE id = %d";
 

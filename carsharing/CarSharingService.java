@@ -78,7 +78,7 @@ public class CarSharingService {
      * Customer related methods
      * */
     public void addCustomer(String customerName) {
-        customerDao.add(new Customer(0, customerName, null));
+        customerDao.add(new Customer(0, customerName, 0));
     }
 
     public List<Customer> getCustomers() {
@@ -94,8 +94,8 @@ public class CarSharingService {
     }
 
     public boolean carReturnByCurrentCustomer() {
-        if (currentCustomer.rentedCarId() != null) {
-            Customer customer = new Customer(currentCustomer.id(), currentCustomer.name(), null);
+        if (currentCustomer.rentedCarId() != 0) {
+            Customer customer = new Customer(currentCustomer.id(), currentCustomer.name(), 0);
             customerDao.update(customer);
             currentCustomer = customer;
             return true;
@@ -105,8 +105,8 @@ public class CarSharingService {
     }
 
     public String getRentedCarByCurrentCustomer() {
-        Integer rentedCarId = currentCustomer.rentedCarId();
-        if (rentedCarId != null) {
+        int rentedCarId = currentCustomer.rentedCarId();
+        if (rentedCarId != 0) {
             return carDao.findById(rentedCarId).name();
         } else {
             return null;
@@ -119,7 +119,7 @@ public class CarSharingService {
     }
 
     public void setRentedCarByCurrentCustomer(String carName) {
-        Integer carId = carDao.findAll().stream()
+        int carId = carDao.findAll().stream()
                 .filter(car -> car.name().equals(carName))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("Car " + carName + " does not exist"))
@@ -132,7 +132,7 @@ public class CarSharingService {
     public List<Car> getAvailableCars(String companyName) {
         List<Integer> rentedCarIds = getCustomers().stream()
                 .map(Customer::rentedCarId)
-                .filter(Objects::nonNull)
+                .filter(carId -> carId != 0)
                 .toList();
         List<Car> cars = getCars(companyName);
         return cars.stream()
