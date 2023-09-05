@@ -11,6 +11,8 @@ This is console based with multilevel menu run from Main. Data storage via H2 RD
 
 MVC approach controller -> service -> persistence.
 
+Interesting part was to make program flexible with user of DAO interface with limited available methods and generic DB client class that can be used by every DAO class. Additionally, an interface to map db query results to objects has been applied.
+
 ## Elements
 
 ### Data objects
@@ -51,5 +53,24 @@ erDiagram
   * cus -> customer
   * mgr -> manager
   * all -> everyone
-
-![multilevelMenuFlowchart.png](carsharing/multilevelMenuFlowchart.png) 
+* Menu framework reused and modified from https://github.com/afitzgibbon/Java---Console-Menu-Framework.git (btw really liked it)
+```mermaid
+flowchart TD
+    mainMenu --manager cockpit--> mgrSubMenuA
+    mainMenu --> allCreateCustomer
+    mainMenu --> cusSelectCustomer
+    mgrSubMenuA --> mgrCreateCompany
+    mgrSubMenuA --> mgrSelectCompany
+    mgrSelectCompany --> mgrSubMenuB
+    mgrSubMenuB --> mgrCarList
+    mgrSubMenuB --> mgrCreateCar
+    mgrSubMenuB -- back --> mgrSubMenuA
+    cusSelectCustomer --> cusSubMenuA
+    cusSubMenuA --> cusMyCar
+    cusSubMenuA --> cusReturnCar
+    cusSubMenuA -- rent a car --> cusSelectCompany
+    cusSubMenuA -- back --> mainMenu
+    cusSelectCompany --> cusSelectCar
+    cusSelectCar --> cusRentCar
+    cusRentCar -- car rented --> cusSubMenuA
+```
