@@ -1,4 +1,4 @@
-package carsharing;
+package carsharing.menu;
 
 import java.lang.reflect.Method;
 

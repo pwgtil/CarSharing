@@ -1,5 +1,7 @@
 package carsharing;
 
+import carsharing.menu.Menu;
+import carsharing.menu.MenuItem;
 import carsharing.persistance.Car;
 import carsharing.persistance.Company;
 import carsharing.persistance.Customer;
