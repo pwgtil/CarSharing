@@ -3,7 +3,7 @@ package carsharing.persistance;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class CarRowMapper implements RowMapper<Car>{
+class CarRowMapper implements RowMapper<Car>{
     @Override
     public Car mapRow(ResultSet resultSetItem) throws SQLException {
         int id = resultSetItem.getInt("ID");

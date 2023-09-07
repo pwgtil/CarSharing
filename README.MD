@@ -15,7 +15,7 @@ Interesting part was to make program flexible with user of DAO interface with li
 
 ## Elements
 
-### Data objects
+### Database objects accessible via DAO classes
 * Customer
 * Car
 * Company
@@ -47,13 +47,14 @@ erDiagram
 ### 
 
 ### Multilevel menu flowchart
+The below flowchart represents the sequence of called methods within **CarSharingController** class to cover the multilevel menu requirements.
 * All levels have option to go back by single step (not marked on graph for clarity)
   * Exceptions that jump back by more than one step are marked with back arrow
-* Method prefixes: 
-  * cus -> customer
-  * mgr -> manager
-  * all -> everyone
-* Menu framework reused and modified from https://github.com/afitzgibbon/Java---Console-Menu-Framework.git (btw really liked it)
+* Method prefixes refers to authorization roles: 
+  * cus -> for customer
+  * mgr -> for manager
+  * all -> for everyone
+* Menu framework reused and modified from [here](https://github.com/afitzgibbon/Java---Console-Menu-Framework.git)  (btw it's really nice)
 ```mermaid
 flowchart TD
     mainMenu --manager cockpit--> mgrSubMenuA

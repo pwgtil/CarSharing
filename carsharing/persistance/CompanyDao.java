@@ -5,7 +5,7 @@ import org.h2.jdbcx.JdbcDataSource;
 
 import java.util.List;
 
-public class CompanyDao implements EntityDao<Company> {
+public class CompanyDao extends EntityDao<Company> {
 
     private static final String CONNECTION_URL = DataBaseClient.DB_URL + CarSharingService.DB_NAME;
 

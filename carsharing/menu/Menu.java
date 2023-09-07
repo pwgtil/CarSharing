@@ -59,7 +59,6 @@ public class Menu {
         MenuItem item = null;
         String input = null;
 
-        //noinspection finally
         try {
             input = Menu.in.readLine();
             int option = Integer.parseInt(input);
@@ -81,7 +80,8 @@ public class Menu {
 //            ConsoleUtils.pauseExecution();
         }
         catch (IOException e) { System.out.println(e.getMessage()); }
-        finally { return item; }
+//        finally { return item; }
+        return item;
     }
 
     private void print() {
